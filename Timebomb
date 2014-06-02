@@ -1,0 +1,17 @@
+private void loadTimeBomb(){
+        Calendar expirationDate = Calendar.getInstance();
+        expirationDate.set(2014, Calendar.JUNE, 4);
+        Calendar t;
+        t = Calendar.getInstance();
+        if (t.compareTo(expirationDate) == 1) {
+            Toast toast = Toast.makeText(MainCardsActivity.this, "Timebombed Preview APK, ask for a recent one", Toast.LENGTH_LONG);
+            toast.show();
+            finish();
+        }
+        else{
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            String sRemaining = "This apk is valid up to: " + sdf.format(expirationDate.getTime());
+            Toast toast = Toast.makeText(MainCardsActivity.this, sRemaining, Toast.LENGTH_LONG);
+            toast.show();
+        }
+}
