@@ -1,0 +1,5 @@
+Intent i = new Intent();
+PackageManager manager = getPackageManager();
+i = manager.getLaunchIntentForPackage("");
+i.addCategory(Intent.CATEGORY_LAUNCHER);
+startActivity(i);
