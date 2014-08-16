@@ -1,0 +1,42 @@
+// Detect current status
+boolean connected = PebbleKit.isWatchConnected(getApplicationContext());
+
+//Receive status broadcast
+PebbleKit.registerPebbleConnectedReceiver(getApplicationContext(), new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Log.i(getLocalClassName(), "Pebble connected!");
+  }
+});
+
+PebbleKit.registerPebbleDisconnectedReceiver(getApplicationContext(), new BroadcastReceiver() {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Log.i(getLocalClassName(), "Pebble disconnected!");
+  }
+});
+
+// UUID
+private final static UUID PEBBLE_APP_UUID = UUID.fromString("");
+
+// Launching my app
+PebbleKit.startAppOnPebble(getApplicationContext(), PEBBLE_APP_UUID);
+
+// Closing my app
+PebbleKit.closeAppOnPebble(getApplicationContext(), PEBBLE_APP_UUID);
+
+// Send data
+PebbleDictionary data = new PebbleDictionary();
+data.addUint8(0, (byte) 42);
+data.addString(1, "a string");
+PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
+
+// Receive data
+PebbleKit.registerReceivedDataHandler(this, new PebbleKit.PebbleDataReceiver(PEBBLE_APP_UUID) {
+    @Override
+    public void receiveData(final Context context, final int transactionId, final PebbleDictionary data) {
+      Log.i(getLocalClassName(), "Received value=" + data.getUnsignedInteger(0) + " for key: 0");
+
+      PebbleKit.sendAckToPebble(getApplicationContext(), transactionId);
+    }
+});
