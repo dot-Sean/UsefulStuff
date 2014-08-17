@@ -1,4 +1,2 @@
-Context context = getApplicationContext();
-int duration = Toast.LENGTH_SHORT;
-Toast toast = Toast.makeText(context, "", duration);
+Toast toast = Toast.makeText(this, "", Toast.LENGTH_LONG);
 toast.show();
