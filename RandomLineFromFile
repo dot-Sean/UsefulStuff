@@ -1,0 +1,8 @@
+Random random = new Random();
+int randomInt = random.nextInt(maxLine);
+FileReader fr = new FileReader(fileLocation);
+BufferedReader reader = new BufferedReader(fr);
+String line = reader.readLine();
+for (int i = 0; i < randomInt + 1; i++) {
+  line = reader.readLine();
+}
