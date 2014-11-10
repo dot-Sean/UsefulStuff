@@ -1,0 +1,18 @@
+                AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+                Account[] list = manager.getAccountsByType("com.google");
+                Utils.createToast(list[0].name);
+
+                Intent intent = new Intent("com.android.vending.billing.PURCHASE");
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setPackage("com.android.vending");
+                intent.setClassName("com.android.vending",
+                        "com.google.android.finsky.billing.lightpurchase.LightPurchaseFlowActivity");
+                intent.putExtra("authAccount", list[0].name);
+                intent.putExtra("backend", 3);
+                intent.putExtra("document_type", 1);
+                intent.putExtra("offer_type", 1);
+                intent.putExtra("full_docid", "com.facebook.katana");
+                intent.putExtra("backend_docid", "com.facebook.katana");
+                intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.facebook.katana"));
+                intent.putExtra("use_direct_purchase", true);
+                startActivity(intent);
